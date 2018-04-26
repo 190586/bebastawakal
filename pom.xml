@@ -5,7 +5,7 @@
 
     <artifactId>bebas-tawakal</artifactId>
     <packaging>jar</packaging>
-    <name>Bebas Tawakal</name>
+    <name>Bebas Tawakal CMS</name>
     <description>FWD Bebas Tawakal</description>
     <url>https://www.fwd.co.id</url>
     <version>1.0</version>
@@ -91,7 +91,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-	
+
     <build>
         <plugins>
             <plugin>
@@ -100,6 +100,6 @@
             </plugin>
         </plugins>
     </build>
-	
+
 
 </project>

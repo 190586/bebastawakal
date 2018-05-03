@@ -57,14 +57,15 @@ public class HomePageController {
         return "/home";
     }
     
-    @RequestMapping(value = "/main-carousel-bar", method = {RequestMethod.GET})
-    public ResponseEntity<?> getMainCarouselBar() {
+    @RequestMapping(value = "/home-slider", method = {RequestMethod.GET})
+    public ResponseEntity<?> getHomeSlider() {
+
         ResponseEntity<?> entity = null;
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         Map<String, Object> resp = new HashMap();
         try {
-            List results = homePageService.getMainCarouselBar();
+            List results = homePageService.getHomeSlider();
             resp.put(RF.RESULTS, results);
             resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
             resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
@@ -77,28 +78,7 @@ public class HomePageController {
 
         return entity;
     }
-    
-    @RequestMapping(value = "/main-static-right", method = {RequestMethod.GET})
-    public ResponseEntity<?> getMainStaticRight() {
-        ResponseEntity<?> entity = null;
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        Map<String, Object> resp = new HashMap();
-        try {
-            List results = homePageService.getMainStaticRight();
-            resp.put(RF.RESULTS, results);
-            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
-            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
-        } catch (Exception ex) {
-            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
-            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
-            errorLogger.error(ex.getMessage(), ex);
-        }
-        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
-
-        return entity;
-    }
-    
+   
     @RequestMapping(value = "/list-menus/{menuType}", method = {RequestMethod.GET})
     public ResponseEntity<?> getListMenus(@PathVariable String menuType) {
         ResponseEntity<?> entity = null;
@@ -243,6 +223,27 @@ public class HomePageController {
             resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
         }
         entity = new ResponseEntity(resp, headers, HttpStatus.OK);
+        return entity;
+    }
+    
+    @RequestMapping(value = "/list-partner", method = {RequestMethod.GET})
+    public ResponseEntity<?> getListPartner() {
+        ResponseEntity<?> entity = null;
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        Map<String, Object> resp = new HashMap();
+        try {
+            List<Partner> results = partnerRepository.findByApproval(true);
+            resp.put(RF.RESULTS, results);
+            resp.put(RF.RESPONSE_CODE, RC.SUCCESS);
+            resp.put(RF.RESPONSE_MESSAGE, RC.SUCCESS_DESC);
+        } catch (Exception ex) {
+            resp.put(RF.RESPONSE_CODE, RC.UNKNOWN_FAIL);
+            resp.put(RF.RESPONSE_MESSAGE, RC.UNKNOWN_FAIL_DESC);
+            errorLogger.error(ex.getMessage(), ex);
+        }
+        entity = new ResponseEntity(resp, headers, HttpStatus.OK);
+
         return entity;
     }
     
